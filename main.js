@@ -21,14 +21,36 @@ let glyphState = {
   '♡': '♥'
 }
 
+// Another way to do it (work with the Pair With TC)
+// function heartCallBack(e) {
+//   console.log(e)
+//   const heartClick = e.target;
+//   mimicServerCall("fakeUrl")
+//     .then(function (serverMessage) {
+//       heartClick.style.color = colorStates[heartClick.style.color]
+//       heartClick.innerText = glyphState[heartClick.innerText]
+//       console.log(like)
+//     })
+//     .catch(function () {
+//       errorModal.classList.remove('hidden');
+//       setTimeout(() => errorModal.classList.add('hidden'), 3000);
+//     })
+// }
+
+const emptyHeart = '♡'
+const fullHeart = '♥'
+
 function heartCallBack(e) {
-  console.log(e)
   const heartClick = e.target;
   mimicServerCall("fakeUrl")
-    .then(function (serverMessage) {
-      heartClick.style.color = colorStates[heartClick.style.color]
-      heartClick.innerText = glyphState[heartClick.innerText]
-      console.log(like)
+    .then(function () {
+      if (heartClick.textContent === emptyHeart) {
+        heartClick.textContent = fullHeart
+        heartClick.classList.add('activated-heart')
+      } else {
+        heartClick.textContent = emptyHeart
+        heartClick.classList.remove('activated-heart')
+      }
     })
     .catch(function () {
       errorModal.classList.remove('hidden');
